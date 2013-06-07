@@ -9,6 +9,6 @@
 		"email": "will@fullscreen.io"
 	}],
 	"require": {
-		"silverstripe/framework": "<=2.4.*"
+		"silverstripe/framework": "~2.4"
 	}
 }
