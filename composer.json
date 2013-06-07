@@ -1,5 +1,5 @@
 {
-	"name": "wilr/silverstripe-userforms",
+	"name": "wilr/silverstripe-googlemapselectionfield",
 	"description": "Select a point on a map form field",
 	"type": "silverstripe-module",
 	"keywords": ["silverstripe", "google maps", "formfield"],
