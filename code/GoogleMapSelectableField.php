@@ -1,8 +1,8 @@
 <?php
 
 /**
- * A form field which outputs a google map, input field for an address which moves
- * the map.
+ * A form field which outputs a google map, input field for an address which 
+ * moves the map.
  *
  * Currently saves the address of a given point. 
  *
@@ -26,13 +26,18 @@ class GoogleMapSelectableField extends FormField {
 	 * @param String - Height of map (px or % to be included)
 	 * @param Int - Zoom Level (1 to 12)
 	 */
-	function __construct($name = "", $title = "", $startLat = 0, $startLong = 0, $mapWidth = '300px', $mapHeight = '300px', $zoom = '2') {
-		if(strpos($mapWidth, 'px') === false && strpos($mapWidth, '%') === false) $mapWidth .= "px";
-		if(strpos($mapHeight, 'px') === false || strpos($mapHeight, '%') !== false){
+	public function __construct($name = "", $title = "", $startLat = 0, $startLong = 0, $mapWidth = '300px', $mapHeight = '300px', $zoom = '2') {
+		if(strpos($mapWidth, 'px') === false && strpos($mapWidth, '%') === false) {
+			$mapWidth .= "px";
+		}
+
+		if(strpos($mapHeight, 'px') === false || strpos($mapHeight, '%') !== false) {
 			$mapHeight = str_replace("%","",$mapHeight);
 			$mapHeight .= "px";
 		}
+
 		parent::__construct($name, $title);
+
 		$this->startLat = $startLat;
 		$this->startLong = $startLong;
 		$this->mapWidth = $mapWidth;
@@ -41,8 +46,7 @@ class GoogleMapSelectableField extends FormField {
 		
 	}
 	
-	
-	function Field() {
+	public function Field() {
 		Requirements::javascript("http://maps.google.com/maps?file=api&amp;v=2&amp;key=". EditableGoogleMapSelectableField::$api_key ."&amp;sensor=true");
 		Requirements::javascriptTemplate("googlemapselectionfield/javascript/GoogleMapSelectionField.js", array(
 			'Name' => $this->name,
@@ -52,6 +56,7 @@ class GoogleMapSelectableField extends FormField {
 			'MapHeight' => $this->mapHeight,
 			'Zoom' => $this->zoom
 		));
+
 		return "
 			<div class=\"field text googleMapField\">
 				<label class=\"left\">$this->Title</label>

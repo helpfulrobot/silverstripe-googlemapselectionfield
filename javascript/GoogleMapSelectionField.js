@@ -36,6 +36,7 @@
 				$(this).val("");	
 			}
 		});
+		
 		$("input.googleMapAddressSubmit").click(function() {
 			var address = $("input.googleMapAddressField").val();
 		 	geocoder.getLatLng(
