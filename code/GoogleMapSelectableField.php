@@ -10,54 +10,56 @@
  * @package googlemapselectionfield
  */
 
-class GoogleMapSelectableField extends FormField {
+class GoogleMapSelectableField extends FormField
+{
 
-	/**
-	 * @var Mixed
-	 */
-	private $startLat, $startLong, $mapWidth, $mapHeight, $zoom;
-	
-	/**
-	 * @param String - Name of Field
-	 * @param String - Title for Field
-	 * @param Int - Start Latitude
-	 * @param Int - Starting Map Longitude
-	 * @param String - Width of map (px or % to be included)
-	 * @param String - Height of map (px or % to be included)
-	 * @param Int - Zoom Level (1 to 12)
-	 */
-	public function __construct($name = "", $title = "", $startLat = 0, $startLong = 0, $mapWidth = '300px', $mapHeight = '300px', $zoom = '2') {
-		if(strpos($mapWidth, 'px') === false && strpos($mapWidth, '%') === false) {
-			$mapWidth .= "px";
-		}
+    /**
+     * @var Mixed
+     */
+    private $startLat, $startLong, $mapWidth, $mapHeight, $zoom;
+    
+    /**
+     * @param String - Name of Field
+     * @param String - Title for Field
+     * @param Int - Start Latitude
+     * @param Int - Starting Map Longitude
+     * @param String - Width of map (px or % to be included)
+     * @param String - Height of map (px or % to be included)
+     * @param Int - Zoom Level (1 to 12)
+     */
+    public function __construct($name = "", $title = "", $startLat = 0, $startLong = 0, $mapWidth = '300px', $mapHeight = '300px', $zoom = '2')
+    {
+        if (strpos($mapWidth, 'px') === false && strpos($mapWidth, '%') === false) {
+            $mapWidth .= "px";
+        }
 
-		if(strpos($mapHeight, 'px') === false || strpos($mapHeight, '%') !== false) {
-			$mapHeight = str_replace("%","",$mapHeight);
-			$mapHeight .= "px";
-		}
+        if (strpos($mapHeight, 'px') === false || strpos($mapHeight, '%') !== false) {
+            $mapHeight = str_replace("%", "", $mapHeight);
+            $mapHeight .= "px";
+        }
 
-		parent::__construct($name, $title);
+        parent::__construct($name, $title);
 
-		$this->startLat = $startLat;
-		$this->startLong = $startLong;
-		$this->mapWidth = $mapWidth;
-		$this->mapHeight = $mapHeight;
-		$this->zoom = $zoom;
-		
-	}
-	
-	public function Field() {
-		Requirements::javascript("http://maps.google.com/maps?file=api&amp;v=2&amp;key=". EditableGoogleMapSelectableField::$api_key ."&amp;sensor=true");
-		Requirements::javascriptTemplate("googlemapselectionfield/javascript/GoogleMapSelectionField.js", array(
-			'Name' => $this->name,
-			'DefaultLat' => $this->startLat,
-			'DefaultLon' => $this->startLong,
-			'MapWidth' => $this->mapWidth,
-			'MapHeight' => $this->mapHeight,
-			'Zoom' => $this->zoom
-		));
+        $this->startLat = $startLat;
+        $this->startLong = $startLong;
+        $this->mapWidth = $mapWidth;
+        $this->mapHeight = $mapHeight;
+        $this->zoom = $zoom;
+    }
+    
+    public function Field()
+    {
+        Requirements::javascript("http://maps.google.com/maps?file=api&amp;v=2&amp;key=". EditableGoogleMapSelectableField::$api_key ."&amp;sensor=true");
+        Requirements::javascriptTemplate("googlemapselectionfield/javascript/GoogleMapSelectionField.js", array(
+            'Name' => $this->name,
+            'DefaultLat' => $this->startLat,
+            'DefaultLon' => $this->startLong,
+            'MapWidth' => $this->mapWidth,
+            'MapHeight' => $this->mapHeight,
+            'Zoom' => $this->zoom
+        ));
 
-		return "
+        return "
 			<div class=\"field text googleMapField\">
 				<label class=\"left\">$this->Title</label>
 				<input type=\"text\" id=\"{$this->id()}\" name=\"{$this->name}\" value=\"". _t('GoogleMapSelectableField.ENTERADDRESS', 'Enter Address') ."\" class=\"text googleMapAddressField\"/>
@@ -65,5 +67,5 @@ class GoogleMapSelectableField extends FormField {
 				<input type=\"hidden\" id=\"{$this->id()}_MapURL\" name=\"{$this->name}_MapURL\" />
 				<div id=\"map_{$this->name}\" style=\"width: $this->mapWidth; height: $this->mapHeight;\"></div>
 			</div>";
-	}
+    }
 }
